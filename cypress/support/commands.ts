@@ -1,3 +1,12 @@
+import { e2e } from './constantes';
+
+declare global{
+    namespace Cypress {
+        interface Chainable{
+            validacionInicial(): Chainable<Element>
+        }
+    }
+}
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -35,3 +44,13 @@
 //     }
 //   }
 // }
+Cypress.Commands.add('validacionInicial', () => { 
+    cy.get(e2e.TITULO_PRINCIPAL).should('contain','Lista de Actividades');
+        cy.get(e2e.SUBTITULO).should('contain','Agregar Actividad');
+        cy.get(e2e.CAMPO_AGREGAR_ACTIVIDAD)
+          .should('be.visible')
+          .and('attr','value','');
+        cy.get(e2e.BOTON_AGREGAR)
+          .should('be.visible')
+          .should('has.css', 'background-color','rgb(40, 167, 69)');
+ })
